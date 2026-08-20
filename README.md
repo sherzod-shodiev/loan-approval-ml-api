@@ -1,4 +1,4 @@
-```python
+
 md_content = """---
 title: Loan Approval Demo
 emoji: 💰
