@@ -1,13 +1,3 @@
-
-md_content = """---
-title: Loan Approval Demo
-emoji: 💰
-colorFrom: blue
-colorTo: green
-sdk: docker
-app_port: 7860
----
-
 # Loan Approval ML API — Сервис скоринга кредитных заявок
 
 FastAPI-сервис с моделью LightGBM для бинарной классификации заявок на кредит (одобрить / отказать) на основе анкетных и финансовых данных заёмщика.
