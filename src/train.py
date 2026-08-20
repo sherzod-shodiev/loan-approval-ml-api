@@ -23,18 +23,12 @@ from sklearn.metrics import accuracy_score, roc_auc_score
 from lightgbm import LGBMClassifier
 
 
-# ==========================================================================
 # 1. ЗАГРУЗКА ДАННЫХ
-# ==========================================================================
 def load_data():
-    # TODO: поправь путь, если структура репозитория отличается.
-    # Предполагается: repo_root/data/clean_data.csv, repo_root/src/train.py
     return pd.read_csv('data/clean_data.csv')
 
 
-# ==========================================================================
 # 2. НАСТРОЙКИ
-# ==========================================================================
 TARGET = "Is Rejected"
 
 NUMERIC_FEATURES = [
@@ -44,9 +38,9 @@ NUMERIC_FEATURES = [
 CATEGORICAL_FEATURES = ["Gender", "Education", "Home Ownership", "Loan Intent"]
 
 TASK = "classification"
-MODEL_PATH = "lgbm_model.joblib"
+MODEL_PATH = "models/lgbm_model.joblib"
 
-# Лучшие гиперпараметры из RandomizedSearchCV (best_score_ ROC-AUC = 0.9386)
+# Лучшие гиперпараметры из RandomizedSearchCV
 BEST_PARAMS = dict(
     n_estimators=962,
     learning_rate=0.0214795108988544,
@@ -60,12 +54,9 @@ BEST_PARAMS = dict(
 )
 
 
-# ==========================================================================
 # 3. СБОРКА ПАЙПЛАЙНА
-# ==========================================================================
 def build_pipeline():
-    # LightGBM (деревья) не требует масштабирования числовых признаков —
-    # только импутация пропусков, как в исходном ноутбуке (prep_tree).
+
     numeric_pipe = Pipeline([
         ("impute", SimpleImputer(strategy="median")),
     ])
@@ -92,9 +83,7 @@ def build_pipeline():
     ])
 
 
-# ==========================================================================
 # 4. ОБУЧЕНИЕ, ОЦЕНКА, СОХРАНЕНИЕ
-# ==========================================================================
 def main():
     df = load_data()
     X = df[NUMERIC_FEATURES + CATEGORICAL_FEATURES]
